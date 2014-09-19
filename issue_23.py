@@ -4,7 +4,7 @@
 Call ils on every file.  Check that the name is being printed.
 """
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 import logging
 import os
@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 import Objects
 
-for (event, obj) in Objects.iterparse(sys.argv[1]):
+for (event, obj) in Objects.iterparse(sys.argv[1], fiwalk="deps/sleuthkit/build/bin/fiwalk"):
     if not isinstance(obj, Objects.FileObject):
         continue
 
@@ -43,5 +43,9 @@ for (event, obj) in Objects.iterparse(sys.argv[1]):
     cmd.append(sys.argv[1])
     cmd.append(str(obj.inode))
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+
+    #TODO Look for the desired output here instead of just piping it through to stdout.
     sys.stdout.write(p.read())
+
+    #Call wait() to let Fiwalk finish.  Reading stdout to the end doesn't end the process.
     p.wait()
