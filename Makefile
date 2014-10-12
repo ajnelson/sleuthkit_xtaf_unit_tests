@@ -3,8 +3,7 @@ SHELL := /bin/bash
 
 all: \
   done_with_issue_13.flag \
-  done_with_issue_21.flag \
-  done_with_issue_23.flag
+  done_with_issue_21.flag
 
 tsk_built.flag: .gitmodules .git/modules/deps/sleuthkit/HEAD
 	rm -f $@
@@ -37,8 +36,4 @@ done_with_issue_13.flag: issue_13.sh issue_13.py tsk_built.flag dfxml_linked.fla
 
 done_with_issue_21.flag: issue_21.sh tsk_built.flag DRIVE2_TIME_FINAL.E01
 	./issue_21.sh
-	touch $@
-
-done_with_issue_23.flag: issue_23.sh issue_23.py tsk_built.flag dfxml_linked.flag DRIVE2_TIME_FINAL.E01
-	./issue_23.sh
 	touch $@
