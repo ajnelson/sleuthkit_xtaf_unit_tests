@@ -16,7 +16,8 @@ def main():
 
         if obj.atime is None:
             continue
-        if not obj.atime.prec in (2, "2", "2s"):
+        if not obj.atime.prec in (2, "2", "2s", (2, "s")):
+            _logger.debug("Precision is: %s." % repr(obj.atime.prec))
             raise ValueError("Precision of atime in XTAF is 2 seconds.")
         _logger.debug("Atime precision good:  File %r." % obj.filename)
 
