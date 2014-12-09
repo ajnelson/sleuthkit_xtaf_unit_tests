@@ -30,9 +30,14 @@ dfxml_linked.flag: .gitmodules
 	git submodule sync
 	git submodule update deps/sleuthkit
 
-done_with_issue_13.flag: issue_13.sh issue_13.py tsk_built.flag dfxml_linked.flag DRIVE2_TIME_FINAL.E01
+done_with_issue_13.flag: issue_13.sh issue_13.py issue_13.dfxml
 	./issue_13.sh
 	touch $@
+
+issue_13.dfxml: tsk_built.flag DRIVE2_TIME_FINAL.E01
+	rm -f _$@ $@
+	deps/sleuthkit/build/bin/fiwalk -X _$@ DRIVE2_TIME_FINAL.E01
+	mv _$@ $@
 
 done_with_issue_21.flag: issue_21.sh tsk_built.flag DRIVE2_TIME_FINAL.E01
 	./issue_21.sh
