@@ -1,5 +1,7 @@
 This repository just contains unit tests for developing the TSK XTAF extension.
 
+To run the tests, run `make`.  (You may want to run `make -j || make --keep-going` to speed the TSK build and then check for failed tests.)
+
 
 ## git-bisect reminders
 
